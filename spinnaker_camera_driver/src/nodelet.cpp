@@ -90,7 +90,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fstream>
 #include <string>
 
-#include <image_numbered_msgs/ImageNumbered.h>
+#include <synchronizer_ros/ImageNumbered.h>
 
 namespace spinnaker_camera_driver {
 class SpinnakerCameraNodelet : public nodelet::Nodelet {
@@ -351,7 +351,7 @@ class SpinnakerCameraNodelet : public nodelet::Nodelet {
 
     ros::SubscriberStatusCallback cb3 =
         boost::bind(&SpinnakerCameraNodelet::connectCb, this);
-    img_numbered_pub_ = nh.advertise<image_numbered_msgs::ImageNumbered>(
+    img_numbered_pub_ = nh.advertise<synchronizer_ros::ImageNumbered>(
         "image_numbered", 5, cb3, cb3);
 
     // Set up diagnostics
@@ -728,8 +728,8 @@ class SpinnakerCameraNodelet : public nodelet::Nodelet {
               it_pub_.publish(image, ci_);
             }
             if (img_numbered_pub_.getNumSubscribers() > 0) {
-              image_numbered_msgs::ImageNumberedPtr image(
-                  new image_numbered_msgs::ImageNumbered());
+              synchronizer_ros::ImageNumberedPtr image(
+                  new synchronizer_ros::ImageNumbered());
               image->image = wfov_image->image;
               image->number = spinnaker_.getFrameCounter();
               // image->image.header.stamp += imu_time_offset_;
