@@ -11,7 +11,28 @@ find_package(catkin REQUIRED COMPONENTS
   wfov_camera_msgs synchronizer_ros
 )
 
-find_package(OpenCV REQUIRED)
+set(TARGET_ARCH "${CMAKE_SYSTEM_PROCESSOR}" CACHE STRING "Target architecture")
+message(STATUS "found platform: ${CMAKE_SYSTEM_PROCESSOR}")
+if (TARGET_ARCH MATCHES "^arm")
+  set(ARM ON) # This means AArch32.
+  set(X64 OFF)
+  message(STATUS "Building for ARM 32")
+elseif (TARGET_ARCH MATCHES "^aarch64")
+  set(ARM ON)
+  set(X64 ON)
+  message(STATUS "Building for ARM 64")
+else ()
+  set(ARM OFF)
+  message(STATUS "Building for x86|x64")
+endif ()
+
+if(ARM)
+  find_package(OpenCV REQUIRED)
+else ()
+  SET(OpenCV_DIR /home/lin/develop/3rd/opencv/install/opencv-4.2.0/lib/cmake/opencv4/)
+  find_package(OpenCV 4.2.0 REQUIRED)
+endif()
+
 
 generate_dynamic_reconfigure_options(
   #cfg/Spinnaker.cfg
