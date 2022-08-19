@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   wfov_camera_msgs synchronizer_ros
 )
 
+# test
 set(TARGET_ARCH "${CMAKE_SYSTEM_PROCESSOR}" CACHE STRING "Target architecture")
 message(STATUS "found platform: ${CMAKE_SYSTEM_PROCESSOR}")
 if (TARGET_ARCH MATCHES "^arm")
