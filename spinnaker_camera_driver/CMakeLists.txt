@@ -30,7 +30,7 @@ endif ()
 if(ARM)
   find_package(OpenCV REQUIRED)
 else ()
-  SET(OpenCV_DIR /home/lin/develop/3rd/opencv/install/opencv-4.2.0/lib/cmake/opencv4/)
+  # SET(OpenCV_DIR /home/lin/develop/3rd/opencv/install/opencv-4.2.0/lib/cmake/opencv4/)
   find_package(OpenCV 4.2.0 REQUIRED)
 endif()
 
